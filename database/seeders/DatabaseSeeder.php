@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\NewsContent;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -25,5 +26,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\User::factory(5)->create();
+        \App\Models\NewsContent::factory(5)->create();
+
     }
 }
