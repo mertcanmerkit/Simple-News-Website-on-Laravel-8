@@ -16,7 +16,7 @@ class NewsContentController extends Controller
      */
     public function index()
     {
-        $newsContents = NewsContent::paginate(10);
+        $newsContents = NewsContent::orderBy('updated_at', 'DESC')->paginate(10);
         return view('admin.news.list', compact('newsContents'));
     }
 
@@ -68,7 +68,8 @@ class NewsContentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $newsContent = NewsContent::find($id) ?? abort('404');
+        return view('admin.news.edit', compact('newsContent'));
     }
 
     /**
@@ -78,9 +79,19 @@ class NewsContentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(NewsContentRequest $request, $id)
     {
-        //
+        NewsContent::find($id) ?? abort('404');
+
+        $requestAll = $request->except(['_method','_token']);
+        if(isset($request->img_src)){
+            $img_name = Str::slug($request->title).'.png';
+            $request->img_src->move(public_path('images'), $img_name);
+            NewsContent::where('id',$id)->update(array_merge($requestAll,['img_src' => $img_name]));
+        }else{
+            NewsContent::where('id',$id)->update(array_merge($requestAll));
+        }
+        return redirect()->route('news-contents.index')->withSucces(substr($request->title,0,50). '... ' . 'news updated');
     }
 
     /**
@@ -91,6 +102,8 @@ class NewsContentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $newsContent = NewsContent::find($id) ?? abort('404');
+        $newsContent->delete();
+        return redirect()->route('news-contents.index')->withSucces('News Deleted.');
     }
 }

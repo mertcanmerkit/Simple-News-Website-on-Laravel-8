@@ -25,14 +25,14 @@ class NewsContentRequest extends FormRequest
     {
         return [
             'title' => 'required|max:32',
-            'description' => 'required|max:1024'
+            'description' => 'required|max:1024',
+            'img_src' => 'mimes:jpg,png,jpeg|max:5048',
         ];
     }
 
     public function attributes()
     {
         return [
-            'img_src' => 'mimes:jpg,png,jpeg|max:5048',
             'title' => 'News title',
             'description' => 'News description'
         ];

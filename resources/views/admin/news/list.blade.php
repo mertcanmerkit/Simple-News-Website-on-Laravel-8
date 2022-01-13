@@ -26,12 +26,23 @@
         @foreach($newsContents as $newsContent)
         <tr>
             <td class="w-15">
-                <img src="{{ asset('images/'.$newsContent->img_src) }}" class="img-fluid img-thumbnail" alt="">
+                @if(isset($newsContent->img_src))
+                <img src=" {{ asset('images/'.$newsContent->img_src) }}" class="img-fluid img-thumbnail" alt="">
+                @else
+                    The image has not been added.
+                @endif
             </td>
             <td>{{ $newsContent->title }}</td>
             <td><?= substr($newsContent->description , 0, 500) . "..."; ?></td>
             <td>{{ $newsContent->status }}</td>
-            <td>Update, Delete</td>
+            <td>
+                <a href="{{ route('news-contents.edit',$newsContent->id) }}" class="btn btn-primary mb-2 w-100">Edit</a>
+                <form action="{{route('news-contents.destroy',$newsContent->id)}}" method="post">
+                    @method('DELETE')
+                    @csrf
+                    <input class="form-control btn-danger w-100" type="submit" value="Delete">
+                </form>
+            </td>
         </tr>
         @endforeach
         </tbody>
