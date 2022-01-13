@@ -16,7 +16,15 @@ class NewsContentController extends Controller
      */
     public function index()
     {
-        $newsContents = NewsContent::orderBy('updated_at', 'DESC')->paginate(10);
+        $newsContents = NewsContent::orderBy('updated_at', 'DESC');
+
+        if(request()->get('title')){
+            $newsContents = $newsContents->where('title','LIKE','%'. request()->get('title') .'%');
+        }
+        if(request()->get('status')){
+           $newsContents = $newsContents->where('status','LIKE','%'.request()->get('status').'%');
+        }
+        $newsContents = $newsContents->paginate(5);
         return view('admin.news.list', compact('newsContents'));
     }
 
