@@ -91,6 +91,18 @@
                         </x-slot>
 
                         <x-slot name="content">
+
+                            @if(auth()->user()->type == 'admin')
+                            <!-- News Contents Management -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('News Contents Manager') }}
+                            </div>
+
+                            <x-jet-dropdown-link href="{{ route('news-contents.index') }}">
+                                {{ __('News') }}
+                            </x-jet-dropdown-link>
+                            @endif
+
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}

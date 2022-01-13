@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NewsContentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,10 +23,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::group(['middleware' => ['auth', 'isAdmin'], 'prefix' => 'admin'], function (){
-    Route::get('/', function (){
-        return '/';
-    });
-    Route::get('create', function (){
-        return 'admin/create';
-    });
+    Route::resource('news-contents', NewsContentController::class);
 });

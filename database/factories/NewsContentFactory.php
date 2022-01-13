@@ -23,7 +23,7 @@ class NewsContentFactory extends Factory
     {
         $status = ['publish','passive','draft'];
         return [
-            'img-src' => $this->faker->imageUrl(800, 600, 'cats'),
+            'img_src' => '640x360.png',
             'title' => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
             'description' => $this->faker->paragraph(40, true),
             'status' => $status[rand(0,2)],
