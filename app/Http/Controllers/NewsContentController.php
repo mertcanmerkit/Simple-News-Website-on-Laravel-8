@@ -65,7 +65,9 @@ class NewsContentController extends Controller
      */
     public function show($id)
     {
-        //
+        $newsContent = NewsContent::where('id', $id)->where('status', 'publish')->first() ?? abort('404');
+
+        return view('content-page', compact('newsContent'));
     }
 
     /**
