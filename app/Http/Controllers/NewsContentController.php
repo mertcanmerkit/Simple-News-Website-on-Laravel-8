@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\NewsContentRequest;
 use App\Models\NewsContent;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -65,9 +66,7 @@ class NewsContentController extends Controller
      */
     public function show($id)
     {
-        $newsContent = NewsContent::where('id', $id)->where('status', 'publish')->first() ?? abort('404');
-
-        return view('content-page', compact('newsContent'));
+        return 'show';
     }
 
     /**

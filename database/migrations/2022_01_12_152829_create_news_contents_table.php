@@ -15,10 +15,10 @@ class CreateNewsContentsTable extends Migration
     {
         Schema::create('news_contents', function (Blueprint $table) {
             $table->id();
-            $table->string('img_src')->nullable();
             $table->string('title');
             $table->longText('description');
             $table->enum('status', ['publish','passive','draft'])->default('draft');
+            $table->string('img_src')->nullable();
             $table->timestamps();
         });
     }

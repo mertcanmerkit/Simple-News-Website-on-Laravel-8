@@ -9,4 +9,8 @@ class NewsContent extends Model
 {
     use HasFactory;
     protected $fillable = ['img_src','title','description','status'];
+
+    public function comments(){
+        return $this->hasMany('App\Models\Comment','news_id');
+    }
 }

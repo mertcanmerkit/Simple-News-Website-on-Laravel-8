@@ -427,7 +427,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{$newsContent->title}}</h5>
                             <p class="card-text">{{ Illuminate\Support\Str::limit($newsContent->description, 80, '...') }}</p>
-                            <a href="{{route('news-contents.show', $newsContent->id)}}" class="btn btn-primary">Go</a>
+                            <a href="{{route('news-detail', $newsContent->id)}}" class="btn btn-primary">Go</a>
                         </div>
                     </div>
                 </div>

@@ -19,6 +19,19 @@
         <p>{{$newsContent->description}}<br/></p>
         <p>{{$newsContent->created_at->format('d/m/Y')}}<br/></p>
 
+        <h5 class="mt-4">Comments</h5>
+        <hr>
+        @if(count($comments) > 0)
+            @foreach($comments as $comment)
+                <strong>{{$comment->user->name}}</strong>
+                <p>{{$comment->content}} Created {{$comment->created_at->format('d/m/Y')}}
+                    Updated {{$comment->updated_at->format('d/m/Y')}}</p>
+                @if(!$loop->last)<hr>@endif
+            @endforeach
+        @else
+            <p>There are no comments yet.</p>
+        @endif
+
     </div>
 </div>
 
