@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsContentController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +25,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::group(['middleware' => ['auth', 'isAdmin'], 'prefix' => 'admin'], function (){
     Route::resource('news-contents', NewsContentController::class);
+    Route::resource('comments', CommentController::class);
 });

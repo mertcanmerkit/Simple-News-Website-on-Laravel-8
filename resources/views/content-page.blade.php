@@ -12,7 +12,7 @@
 <body>
 
 <div class="container">
-    <div class="row">
+    <div class="row mb-3 mt-3">
         <img src="{{asset('/images/'. $newsContent->img_src)}}" alt=""><br/>
 
         <h1>{{$newsContent->title}}<br/></h1>
@@ -31,7 +31,6 @@
         @else
             <p>There are no comments yet.</p>
         @endif
-
     </div>
 </div>
 

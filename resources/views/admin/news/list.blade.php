@@ -66,8 +66,10 @@
                                 <form action="{{route('news-contents.destroy',$newsContent->id)}}" method="post">
                                     @method('DELETE')
                                     @csrf
-                                    <input class="form-control btn-danger w-100" type="submit" value="Delete">
+                                    <input class="form-control btn-danger mb-2 w-100" type="submit" value="Delete">
                                 </form>
+                                <a href="{{ route('comments.show',$newsContent->id) }}"
+                                   class="btn btn-warning mb-2 w-100">Comments Manager</a>
                             </td>
                         </tr>
                     @endforeach

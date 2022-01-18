@@ -18,8 +18,7 @@ class MainController extends Controller
     public function newsDetail($id)
     {
         $newsContent = NewsContent::where('id', $id)->where('status', 'publish')->first() ?? abort('404');
-        $comments = $newsContent->comments;
-
+        $comments = $newsContent->comments->where('status', 'publish');
         return view('content-page', compact(['newsContent','comments']));
     }
 }
