@@ -20,17 +20,49 @@
         <p>{{$newsContent->created_at->format('d/m/Y')}}<br/></p>
 
         <h5 class="mt-4">Comments</h5>
-        <hr>
-        @if(count($comments) > 0)
-            @foreach($comments as $comment)
-                <strong>{{$comment->user->name}}</strong>
-                <p>{{$comment->content}} Created {{$comment->created_at->format('d/m/Y')}}
-                    Updated {{$comment->updated_at->format('d/m/Y')}}</p>
-                @if(!$loop->last)<hr>@endif
-            @endforeach
-        @else
-            <p>There are no comments yet.</p>
+        @if(session('succes'))
+            <div class="alert alert-success">
+                {{session('succes')}}
+            </div>
         @endif
+
+        <div>
+
+            @auth
+                <form action="{{route('comments.store')}}" method="post">
+                    @csrf
+                    <label for="content">Message:</label>
+                    <textarea class="form-control" name="content" id="content" rows="5"></textarea>
+                    <input type="hidden" value="{{auth()->user()->getRememberToken()}}"
+                           name="{{auth()->user()->getRememberTokenName()}}">
+                    <input type="hidden" value="{{$newsContent->id}}" name="news_id">
+                    <input type="submit" class="btn btn-primary mt-2 mb-2">
+                </form>
+            @else
+                <span class="mb-2">To add a comment, Please <a href="{{route('login')}}">login</a> or <a
+                        href="{{route('register')}}">register.</a> </span>
+            @endif
+            <hr>
+            @if(count($comments) > 0)
+                @foreach($comments as $comment)
+                    <div>
+
+                        <strong>{{$comment->user->name}}</strong>
+                        <p>{{$comment->content}}</p>
+                        <div class="d-flex justify-content-between">
+                            <p>Created {{$comment->created_at->format('d/m/Y')}}
+                                Updated {{$comment->updated_at->format('d/m/Y')}}</p>
+
+                        </div>
+                        @if(!$loop->last)
+                            <hr>@endif
+                    </div>
+                @endforeach
+            @else
+                <p>There are no comments yet.</p>
+            @endif
+
+        </div>
     </div>
 </div>
 

@@ -16,10 +16,10 @@ use App\Http\Controllers\CommentController;
 |
 */
 
-Route::get('/', [MainController::class, 'index']);
+Route::get('/', [MainController::class, 'index'])->name('index');
 Route::get('/news-detail/{id}', [MainController::class, 'newsDetail'])->name('news-detail');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+Route::middleware(['auth:sanctum', 'verified', 'isAdmin'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 

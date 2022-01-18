@@ -13,7 +13,7 @@
                     <div class="col-4 ps-0">
                         <input class="form-control" type="text" name="title"
                                @if(request()->get('title')) value="{{request()->get('title')}}"
-                               @endif placeholder="Quiz Title">
+                               @endif placeholder="News Title">
                     </div>
                     <div class="col-4">
                         <select class="form-control" onchange="this.form.submit()" name="status" id="status">

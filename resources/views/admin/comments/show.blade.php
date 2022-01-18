@@ -28,6 +28,7 @@
         @foreach($comments as $comment)
             <div class="card mt-4">
                 <div class="card-header">
+                    {{$comment->commenter_id}}
                     <strong>{{$comment->user->name}}</strong>
                     <div class="d-inline-flex float-end">
                         <form action="{{route('comments.update', $comment->id)}}" method="post">

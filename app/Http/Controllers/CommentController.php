@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\NewsContent;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -35,7 +36,11 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $commenter_id = User::where('remember_token',$request->remember_token)->first()->id ?? abort('404');
+        $news_id = $request->news_id;
+        $comment = Comment::create(['commenter_id' => $commenter_id, 'news_id' => $news_id, 'content' => $request->content]);
+
+        return redirect()->back()->withSucces('Your comment has been added');
     }
 
     /**
