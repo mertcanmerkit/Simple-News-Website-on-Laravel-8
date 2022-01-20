@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsContentController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\MemberCommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,5 @@ Route::group(['middleware' => ['auth', 'isAdmin'], 'prefix' => 'admin'], functio
     Route::resource('news-contents', NewsContentController::class);
     Route::resource('comments', CommentController::class);
 });
+
+Route::resource('member-comments', MemberCommentController::class)->middleware('auth');

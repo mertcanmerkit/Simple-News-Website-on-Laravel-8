@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
-use App\Models\NewsContent;
-use App\Models\User;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+class MemberCommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,6 +14,7 @@ class CommentController extends Controller
      */
     public function index()
     {
+        //
     }
 
     /**
@@ -31,34 +30,29 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $commenter_id = User::where('remember_token', $request->remember_token)->first()->id ?? abort('404');
-        $news_id = $request->news_id;
-        $comment = Comment::create(['commenter_id' => $commenter_id, 'news_id' => $news_id, 'content' => $request->content]);
-
-        return redirect()->back()->withSucces('Your comment has been added');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $comments = NewsContent::find($id)->comments ?? abort('404');
-        return view('admin.comments.show', compact('comments'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -69,25 +63,25 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        Comment::where('id', $id)->update(['status' => $request->status]);
-        return redirect()->back()->withChanged('Status Changed');
+        Comment::where('id',$id)->update(['content' => $request->content]);
+        return redirect()->back()->withUpdated('Comments Updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         Comment::where('id', $id)->delete() ?? abort('404');
-        return redirect()->back()->withDeleted('Comment Deleted');
+        return redirect()->back();
     }
 }

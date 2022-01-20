@@ -46,13 +46,44 @@
             @if(count($comments) > 0)
                 @foreach($comments as $comment)
                     <div>
-
                         <strong>{{$comment->user->name}}</strong>
-                        <p>{{$comment->content}}</p>
+                        <div>
+                        @if(Request::has('update'))
+                            @if(Request::get('update') == $comment->id)
+                                <form action="{{route('member-comments.update', $comment->id)}}" method="post">
+                                    @method('PUT')
+                                    @csrf
+                                    <input class="form-control" type="text" name="content"
+                                           value="{{$comment->content}}">
+                                    <input class="btn btn-primary float-end" type="submit" value="Update">
+                                </form>
+                            @else
+                                <p>{{$comment->content}}</p>
+                            @endif
+                        @else
+                            <p>{{$comment->content}}</p>
+                        @endif
+                        </div>
                         <div class="d-flex justify-content-between">
                             <p>Created {{$comment->created_at->format('d/m/Y')}}
                                 Updated {{$comment->updated_at->format('d/m/Y')}}</p>
-
+                            @auth
+                            @if(auth()->user()->id == $comment->commenter_id)
+                                <form action="" method="get">
+                                    @if(Request::get('update') == $comment->id)
+                                    @else
+                                        <button class="btn btn-warning" type="submit" name="update"
+                                                value="{{$comment->id}}">Update
+                                        </button>
+                                    @endif
+                                </form>
+                                <form action="{{route('member-comments.destroy', $comment->id)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input class="btn btn-danger" type="submit" value="Delete">
+                                </form>
+                            @endif
+                            @endauth
                         </div>
                         @if(!$loop->last)
                             <hr>@endif
