@@ -70,7 +70,7 @@ class MemberCommentController extends Controller
     public function update(Request $request, $id)
     {
         Comment::where('id',$id)->update(['content' => $request->content]);
-        return redirect()->back()->withUpdated('Comments Updated');
+        return redirect()->back()->withUpdate($request->id);
     }
 
     /**
